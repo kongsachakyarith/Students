@@ -1,0 +1,8 @@
+data,M,15-10-2000,PP
+kadjsa,M,15-10-2000,PP
+arith,M,15-10-2000,PP
+srith,M,15-10-2000,PP
+tarith,M,15-10-2000,PP
+chan dara,M,12-10-2000,kompong cham
+Zin onesd,M,15-10-2000,PP
+kaka,M,12-10-2000,kompong cham
