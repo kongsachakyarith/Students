@@ -31,33 +31,33 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" novalidate="novalidate" method="POST" action="{{route('dashboard.student.create_submit')}}">
+              <form id="quickForm" novalidate="novalidate" method="POST" action="{{route('student.store')}}">
               
             <!-- Equivalent to... -->
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" required>
+                    <label for="exampleInputEmail1">UserName</label>
+                    <input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter name" required autofocus>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Sex</label>
-                    <input type="text" name="sex" class="form-control" id="exampleInputPassword1" placeholder="Sex" required>
+                    <label for="exampleInputPassword1">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="exampleInputPassword1" placeholder="lastname" required autofocus>
                   </div>
                   
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Date</label>
-                        <input type="text" name="date" class="form-control" id="exampleInputEmail1" placeholder="Enter name" required>
+                        <label for="exampleInputEmail1">First Name</label>
+                        <input type="text" name="first_name" class="form-control" id="exampleInputEmail1" placeholder="firstname" required autofocus>
                       </div>
                   
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Address</label>
-                    <input type="text" name="address" class="form-control" id="exampleInputPassword1" placeholder="address" required>
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="text" name="email" class="form-control" id="exampleInputPassword1" placeholder="email" required>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>

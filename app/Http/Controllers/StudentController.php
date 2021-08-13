@@ -1,52 +1,135 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Models\Employee;
-use App\Http\Controllers\TestController;
+
+use App\Models\Profile;
+use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 class StudentController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        $users = student::all();
+        return view('student.index',['data' => $users]);
 
-    public function create(){
-        return view('admin.AddStudent');
     }
 
-    public function update($id){
-        $user = file('../students.txt');
-        $ddf = $user[$id];
-        $student = explode(',', $ddf);
-        return view('admin.EditStudent',['data' => $student, 'id' => $id]);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        return view('student.AddStudent');
     }
 
-    public function create_submit(Request $request){
-        $name = $request->name;
-        $sex = $request->sex;
-        $date = $request->date;
-        $address = $request->address;
-        $ddd = $name.",".$sex.",".$date.",".$address;
-        file_put_contents('../students.txt',PHP_EOL.$ddd, FILE_APPEND);
-        return redirect()->route('dashboard.student.index')->with('message','Add Student Successfully');
-    }
-    public function update_submit(Request $request,$id){
-        $students = file('../students.txt');
-        $name = $request->name;
-        $sex = $request->sex;
-        $date = $request->date;
-        $address = $request->address;
-        $students[$id] =$name.",".$sex.",".$date.",".$address.PHP_EOL;
-        file_put_contents('../students.txt',implode("",$students));           
-        return redirect()->route('dashboard.student.index')->with('message','Update Student Successfully');
-    }
-    public function delete_submit(Request $request)
-	{
-        $students = file('../students.txt');
-        $checked = $request->input('checked');
-        foreach($checked as $key ) 	
-         {
-            unset($students[$key]); 
-            file_put_contents('../students.txt', implode("", $students));
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $validator = Validator::make($request->all(), [
+            'username' =>['required'],
+            'last_name'=>['required'],
+            'first_name'=>['required'],
+            'email'     => 'required|email|max:256',
+        ]);
+        if ($validator->fails()) {
+            return Redirect()
+                    ->back()
+                    ->withErrors($validator);
+        }else{
+            $student=new Student();
+            $student->username = $request->input('username');
+            $student->last_name = $request->input('last_name');
+            $student->first_name = $request->input('first_name');
+            $student->email = $request->input('email');
+            $student->save();
+            return redirect()->route('student.index')->with('message','Add Student Successfully');
         }
-		return redirect()->route('dashboard.student.index')->with('message','Delete Student Successfully');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        $student = Student::find($id);
+        // $roles = role::all();
+        return view('student.EditStudent',  ['data' => $student ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $validator = Validator::make($request->all(), [
+            'username' =>['required'],
+            'last_name'=>['required'],
+            'first_name'=>['required'],
+            'email'     => 'required|email|max:256',
+        ]);
+        if ($validator->fails()) {
+            return Redirect()
+                    ->back()
+                    ->withErrors($validator);
+        }else{
+            $student= Student::find($id);
+            $student->username = $request->input('username');
+            $student->last_name = $request->input('last_name');
+            $student->first_name = $request->input('first_name');
+            $student->email = $request->input('email');
+            $student->save();
+            return redirect()->route('student.index')->with('message','Edit Student Successfully');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        $profile = Profile::find($id);
+        $profile->delete();
+		return redirect()->route('profile.index')->with('message','Delete Student Successfully');
+    }
+    
 }

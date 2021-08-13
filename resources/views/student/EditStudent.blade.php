@@ -11,7 +11,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Students</li>
+              <li class="breadcrumb-item active">Student</li>
             </ol>
           </div>
         </div>
@@ -27,36 +27,38 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Hello<small>Students</small></h3>
+                <h3 class="card-title">Hello<small>Student</small></h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" novalidate="novalidate" method="POST" action="{{route('dashboard.student.update_submit', $id)}}">
+              <form id="quickForm" novalidate="novalidate" method="POST" action="/student/{{ $data->id }}">
+              
             <!-- Equivalent to... -->
-            
-            {{ csrf_field() }}
+            @csrf
+            @method('PUT')
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" name="name" class="form-control"  id="exampleInputEmail1" value="{{$data[0]}}" >
+                    <label for="exampleInputEmail1">UserName</label>
+                    <input type="text" name="username" class="form-control" id="exampleInputEmail1" value="{{$data->username}}" required autofocus>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Sex</label>
-                    <input type="text" name="sex" class="form-control" id="exampleInputPassword1" value="{{$data[1]}}">
+                    <label for="exampleInputPassword1">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="exampleInputPassword1" value="{{$data->last_name}}" required autofocus>
                   </div>
-                 
+                  
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">First Name</label>
+                        <input type="text" name="first_name" class="form-control" id="exampleInputEmail1" value="{{$data->first_name}}" required autofocus>
+                      </div>
+                  
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Date</label>
-                    <input type="text" name="date" class="form-control" id="exampleInputEmail1" value="{{$data[2]}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Address</label>
-                    <input type="text" name="address" class="form-control" id="exampleInputPassword1"  value="{{$data[3]}}">
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="text" name="email" class="form-control" id="exampleInputPassword1" value="{{$data->email}}" required>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary" name='submit'>Update</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>

@@ -204,7 +204,7 @@
           
           <li class="nav-header">Informtion</li>
           <li class="nav-item">
-            <a href="{{route('dashboard.student.index')}}" class="nav-link">
+            <a href="{{route('student.index')}}" class="nav-link">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 Student
@@ -213,10 +213,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('dashboard.score.index_a')}}" class="nav-link">
+            <a href="{{route('profile.index')}}" class="nav-link">
               <i class="nav-icon fa fa-graduation-cap"></i>
               <p>
-                Score
+                Profile
               </p>
             </a>
           </li>
