@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\BookController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -60,6 +61,7 @@ Route::get('admin/dashboard/score',     [TestController::class, 'score']);
 // Route::post('/student/update/submit/{id}',      [StudentController::class, 'update_submit'])->name('dashboard.student.update_submit');
 Route::resource('student', StudentController::class);
 Route::resource('profile', ProfileController::class);
+Route::resource('book', BookController::class);
 
 // Route::get('/score/create',                   [ScoreController::class, 'create'])->name('dashboard.score.create');
 // Route::post('/score/create/submit{id}',       [ScoreController::class, 'create_submit'])->name('dashboard.score.create_submit');

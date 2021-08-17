@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title')</title>
-
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{url('plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -220,7 +222,15 @@
               </p>
             </a>
           </li>
- 
+
+          <li class="nav-item">
+            <a href="{{route('book.index')}}" class="nav-link">
+              <i class="nav-icon fa fa-graduation-cap"></i>
+              <p>
+                Book
+              </p>
+            </a>
+          </li>
           
         </ul>
       </nav>
@@ -259,6 +269,8 @@
 <!-- Bootstrap 4 -->
 <script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
+<!-- Select2 -->
+<script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{url('plugins/sparklines/sparkline.js')}}"></script>
@@ -282,5 +294,6 @@
 <script src="{{url('dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{url('dist/js/pages/dashboard.js')}}"></script>
+@yield('additional_scripts')
 </body>
 </html>

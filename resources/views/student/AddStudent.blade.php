@@ -55,6 +55,19 @@
                     <input type="text" name="email" class="form-control" id="exampleInputPassword1" placeholder="email" required>
                   </div>
                 </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="category">Book</label> 
+                    <a class="btn btn-sm btn-success" href="{{route('book.create')}}"><i class="fas fa-plus"> new create</i> </a>
+                    <a  href="" data-toggle="tooltip" data-html="true" title="" data-original-title="<em>Add New</em>"><i class="cil-plus"></i></a>
+                    <div class="form-group">
+                       <select class="form-control" name="book_name[]" id=book multiple>
+                            @foreach($book as  $value)
+                                <option value="{{$value->id}}">{{$value->name}}</option>                                        
+                            @endforeach
+                       </select>
+                    </div>
+                </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
@@ -75,4 +88,12 @@
     </section>
     <!-- /.content -->
   </div>
+
+  @section('additional_scripts')
+    <script>
+        $(document).ready(function(){
+            $('#book').select2();
+        });
+    </script>
+  @endsection
 @endsection

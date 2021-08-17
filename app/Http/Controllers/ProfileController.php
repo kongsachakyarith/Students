@@ -113,8 +113,10 @@ class ProfileController extends Controller
     public function destroy(Request $request,$id)
     {
         //
+        $profile = Profile::find($id);
+        $student->delete();
 
-		return redirect()->route('student.index')->with('message','Delete Profile Successfully');
+		return redirect()->route('profile.index')->with('message','Delete Profile Successfully');
     }
     
 }

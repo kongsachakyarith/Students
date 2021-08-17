@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Profile;
-use App\Models\Student;
-use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-class StudentController extends Controller
+use App\Models\Book;
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class StudentController extends Controller
     public function index()
     {
         //
-        $users = student::all();
-        return view('student.index',['data' => $users]);
-
+        $book = Book::all();
+        return view('book.index',['book' => $book]);
     }
 
     /**
@@ -29,8 +26,8 @@ class StudentController extends Controller
     public function create()
     {
         //
-        $book = Book::get();
-        return view('student.AddStudent',['book' => $book]);
+        $book = Book::all();
+        return view('book.create',['book' => $book]);
     }
 
     /**
@@ -43,26 +40,24 @@ class StudentController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'username' =>['required'],
-            'last_name'=>['required'],
-            'first_name'=>['required'],
-            'email'     => 'required|email|max:256',
+            'title'         =>'required',
+            'name'          =>'required',
+            'author'        =>'required',
+            'publisher'     => 'required'
         ]);
         if ($validator->fails()) {
             return Redirect()
                     ->back()
                     ->withErrors($validator);
+        }else{
+            $book =new Book();
+            $book->title      = $request->input('title');
+            $book->name       = $request->input('name');
+            $book->author     = $request->input('author');
+            $book->publisher  = $request->input('publisher');
+            $book->save();
+            return redirect()->route('book.index')->with('message','Add Book Successfully');
         }
-        $book = $request->input('book_name');
-        $student=Student::create([
-         'username'        =>$request->input('username'),
-         'last_name'       =>$request->input('last_name'),
-         'first_name'      =>$request->input('first_name'),
-         'email'           =>$request->input('email'),
-        ]);    
-        $student->books()->attach($book);
-        $student->save();
-            return redirect()->route('student.index')->with('message','Add Student Successfully');
     }
 
     /**
@@ -85,9 +80,8 @@ class StudentController extends Controller
     public function edit($id)
     {
         //
-        $student = Student::find($id);
-        // $roles = role::all();
-        return view('student.EditStudent',  ['data' => $student ]);
+        $book = Book::find($id);
+        return view('book.edit',  ['book' => $book ]);
     }
 
     /**
@@ -101,23 +95,23 @@ class StudentController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'username' =>['required'],
-            'last_name'=>['required'],
-            'first_name'=>['required'],
-            'email'     => 'required|email|max:256',
+            'title'         =>'required',
+            'name'          =>'required',
+            'author'        =>'required',
+            'publisher'     => 'required'
         ]);
         if ($validator->fails()) {
             return Redirect()
                     ->back()
                     ->withErrors($validator);
         }else{
-            $student= Student::find($id);
-            $student->username = $request->input('username');
-            $student->last_name = $request->input('last_name');
-            $student->first_name = $request->input('first_name');
-            $student->email = $request->input('email');
-            $student->save();
-            return redirect()->route('student.index')->with('message','Edit Student Successfully');
+            $book = Book::find($id);
+            $book->title      = $request->input('title');
+            $book->name       = $request->input('name');
+            $book->author     = $request->input('author');
+            $book->publisher  = $request->input('publisher');
+            $book->save();
+            return redirect()->route('book.index')->with('message','Update Book Successfully');
         }
     }
 
@@ -130,9 +124,9 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-        $student = Student::find($id);
+        $profile = Book::find($id);
         $student->delete();
-		return redirect()->route('student.index')->with('message','Delete Student Successfully');
+
+		return redirect()->route('book.index')->with('message','Delete Profile Successfully');
     }
-    
 }
